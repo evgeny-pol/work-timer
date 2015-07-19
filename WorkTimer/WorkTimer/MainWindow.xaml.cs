@@ -1,6 +1,10 @@
 ﻿using Microsoft.Win32;
+using System;
+using System.Drawing;
 using System.Windows;
+using System.Windows.Forms;
 using WorkTimer.Properties;
+using Resource = WorkTimer.Properties.Resources;
 
 namespace WorkTimer
 {
@@ -8,9 +12,12 @@ namespace WorkTimer
     {
         private readonly WorkTimerController _controller;
 
+        private NotifyIcon _notifyIcon;
+
         public MainWindow()
         {
             InitializeComponent();
+            CreateNotifyIcon();
 
             _controller = new WorkTimerController(Settings.Default.MaxWorkDurationBeforeBreak);
 
@@ -24,19 +31,6 @@ namespace WorkTimer
 
         private void HandleSystemSessionSwitch(object sender, SessionSwitchEventArgs eventArgs)
         {
-            /*
-             * SessionSwitchReason:
-             * ConsoleConnect       - session has been connected from the console.
-             * ConsoleDisconnect    - session has been disconnected from the console.
-             * RemoteConnect        - session has been connected from a remote connection.
-             * RemoteDisconnect     - session has been disconnected from a remote connection.
-             * SessionLock          - session has been locked.
-             * SessionLogoff        - user has logged off from a session.
-             * SessionLogon         - user has logged on to a session.
-             * SessionRemoteControl - session has changed its status to or from remote controlled mode.
-             * SessionUnlock        - session has been unlocked.
-             */
-
             // todo: test in multi-user environment
 
             switch (eventArgs.Reason)
@@ -59,6 +53,19 @@ namespace WorkTimer
         private void WorkSuspended()
         {
             _controller.WorkPeriodEnded();
+        }
+
+        private void CreateNotifyIcon()
+        {
+            if (_notifyIcon != null)
+                return;
+
+            _notifyIcon = new NotifyIcon
+            {
+                Text = Resource.TrayIconText,
+                Icon = Resource.TrayIcon,
+                Visible = true
+            };
         }
     }
 }
