@@ -3,9 +3,6 @@ using System.Threading;
 
 namespace WorkTimer
 {
-    /// <summary>
-    /// Class is NOT thread safe
-    /// </summary>
     public sealed class WorkTimerController
     {
         private const double TimerPeriodMinutes = 1;
