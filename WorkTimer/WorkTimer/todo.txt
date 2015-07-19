@@ -1,0 +1,3 @@
+﻿do not show icon in task bar
+non-default tray icon
+tray icon menu item - 'exit'

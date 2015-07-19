@@ -61,6 +61,24 @@ namespace WorkTimer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Work Timer.
+        /// </summary>
+        internal static string BallonTipTitle {
+            get {
+                return ResourceManager.GetString("BallonTipTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been working for {0} minutes without taking a break! Please rest for a bit!.
+        /// </summary>
+        internal static string BreakRequiredMessageFormat {
+            get {
+                return ResourceManager.GetString("BreakRequiredMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon TrayIcon {

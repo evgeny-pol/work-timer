@@ -10,6 +10,8 @@ namespace WorkTimer
 {
     public partial class MainWindow
     {
+        const int BalloonTipTimeout = 5000;
+
         private readonly WorkTimerController _controller;
 
         private NotifyIcon _notifyIcon;
@@ -20,6 +22,7 @@ namespace WorkTimer
             CreateNotifyIcon();
 
             _controller = new WorkTimerController(Settings.Default.MaxWorkDurationBeforeBreak);
+            _controller.BreakRequired += BreakRequiredHandler;
 
             SystemEvents.SessionSwitch += HandleSystemSessionSwitch;
         }
@@ -66,6 +69,20 @@ namespace WorkTimer
                 Icon = Resource.TrayIcon,
                 Visible = true
             };
+        }
+
+        private void BreakRequiredHandler(WorkTimerController sender, BreakRequiredEventArgs eventArgs)
+        {
+            _notifyIcon.ShowBalloonTip(BalloonTipTimeout,
+                                       Resource.BallonTipTitle,
+                                       FormatBreakRequiredMessage(eventArgs),
+                                       ToolTipIcon.Warning);
+        }
+
+        private static string FormatBreakRequiredMessage(BreakRequiredEventArgs eventArgs)
+        {
+            return string.Format(Resource.BreakRequiredMessageFormat,
+                                 eventArgs.CurrentWorkPeriodDuration.Minutes);
         }
     }
 }
