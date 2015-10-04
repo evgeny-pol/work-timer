@@ -82,7 +82,7 @@ namespace WorkTimer
         private static string FormatBreakRequiredMessage(BreakRequiredEventArgs eventArgs)
         {
             return string.Format(Resource.BreakRequiredMessageFormat,
-                                 eventArgs.CurrentWorkPeriodDuration.Minutes);
+                                 (int)eventArgs.CurrentWorkPeriodDuration.TotalMinutes);
         }
     }
 }
